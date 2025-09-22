@@ -2,18 +2,20 @@
 I configure user ids and loggers for the XTDDXP first exploration.
 "
 Class {
-	#name : #XTDDXPConfigurator,
-	#superclass : #Object,
-	#category : #XTDDXP
+	#name : 'XTDDXPConfigurator',
+	#superclass : 'Object',
+	#category : 'XTDDXP',
+	#package : 'XTDDXP'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 XTDDXPConfigurator >> configureExperiment [
 
 	EpMonitor disableDuring: [ 
 		| userId currentAuthorName concreteLogger |
 		userId := self requestUserName ifNil: [ ^ self ].
 		currentAuthorName := Author uniqueInstance fullNamePerSe.
+		self flag: 'configure the project path'.
 		Author uniqueInstance fullName: 'XXTDDSetup'.
 		self removeERRecorderFromSettings.
 		concreteLogger := self newLogger.
@@ -21,23 +23,24 @@ XTDDXPConfigurator >> configureExperiment [
 		concreteLogger projectName: 'xtdd'.
 		concreteLogger participantUUID: userId.
 		self spyClass logger: concreteLogger.
-		self instrumenterClass instrumentSystem.
+		self flag: 'configure the instrumentation'.
+		"self instrumenterClass instrumentSystem."
 		Author uniqueInstance fullName: currentAuthorName.
 		concreteLogger authorizeDataSending.
 		 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 XTDDXPConfigurator >> instrumenterClass [
 	^(self class environment at: #DSSpyInstrumenter)
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 XTDDXPConfigurator >> newLogger [
 	^(self class environment at: #DSEventRecorderLogger) new
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 XTDDXPConfigurator >> removeERRecorderFromSettings [
 	EREventRecorderSettings class compile:'urlSettingsOn: aBuilder 
 
@@ -50,7 +53,7 @@ XTDDXPConfigurator >> removeERRecorderFromSettings [
 	
 ]
 
-{ #category : #requests }
+{ #category : 'requests' }
 XTDDXPConfigurator >> requestUserName [
 
 	| input |
@@ -62,7 +65,7 @@ XTDDXPConfigurator >> requestUserName [
 	^ input
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 XTDDXPConfigurator >> spyClass [
 	^(self class environment at: #DSSpy)
 ]
