@@ -20,7 +20,7 @@ XTDDXPConfigurator >> configureExperiment [
 		concreteLogger setExperiment: XTDDXPExperiment new.
 		
 		self flag: 'set the project name (will be the path on server)'.
-		concreteLogger projectName: 'completion'.
+		concreteLogger projectName: 'complishon'.
 		
 		self flag: 'configure the logger'.
 		concreteLogger participantUUID: 'xxx'.

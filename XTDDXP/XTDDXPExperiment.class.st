@@ -10,5 +10,5 @@ Class {
 
 { #category : 'accessing' }
 XTDDXPExperiment >> experienceId [ 
-	^'xtdd-experiment'
+	^'completion'
 ]
